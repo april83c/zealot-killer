@@ -62,7 +62,7 @@ client.once(Events.ClientReady, async c => {
   ]
   try {
     const data = await rest.put(
-			Routes.applicationGuildCommands('1303189994349002752', '1206346447713210428'),
+			Routes.applicationCommands('1303189994349002752'),
 			{ body: commands },
 		); // @ts-ignore
     console.log(green("✓"), reset(`Successfully reloaded ${data.length} application (/) commands.`));
