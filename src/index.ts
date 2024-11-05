@@ -1,7 +1,7 @@
 import { Client, Events, GatewayIntentBits, SlashCommandBuilder, REST, Routes, EmbedBuilder, InteractionContextType } from "discord.js"
 import "dotenv/config"
 import { yellow, green, reset } from "kleur"
-import { checkProfile, isEventOccurring } from "./utils/functions";
+import { checkProfile, getTopSummoningEyes, isEventOccurring } from "./utils/functions";
 import User from "./models/User";
 import mongoose from "mongoose";
 
@@ -22,6 +22,9 @@ const client = new Client({
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return
   if (interaction.commandName.toLowerCase() == 'kill') {
+    let topProfiles = (await getTopSummoningEyes())
+    let position = topProfiles.findIndex((p) => p.user == interaction.user.id) + 1
+    //console.log(position)
     console.log(yellow('‣'), reset(`${interaction.user.displayName} (${interaction.user.id}) performed the /kill command.`))
     await checkProfile(interaction.user.id)
     let profile = await User.find({

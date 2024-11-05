@@ -1,6 +1,12 @@
 import User from "../models/User"
 import { yellow, green, reset } from "kleur"
 
+export const getTopSummoningEyes = async function () {
+  let users = await User.find().exec()
+  users.sort(function (a, b) { return (b.summoningEyes) - (a.summoningEyes) })
+  return users
+}
+
 export const checkProfile = async function (user, bot = null) {
   let users = await User.find({
     user: user
