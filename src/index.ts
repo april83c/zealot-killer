@@ -1,6 +1,6 @@
 import { Client, Events, GatewayIntentBits, SlashCommandBuilder, REST, Routes, EmbedBuilder } from "discord.js"
 import "dotenv/config"
-import { green, reset } from "kleur"
+import { yellow, green, reset } from "kleur"
 import { checkProfile, isEventOccurring } from "./utils/functions";
 import User from "./models/User";
 import mongoose from "mongoose";
@@ -22,6 +22,7 @@ const client = new Client({
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return
   if (interaction.commandName.toLowerCase() == 'kill') {
+    console.log(yellow('‣'), reset(`${interaction.user.displayName} (${interaction.user.id}) performed the /kill command.`))
     await checkProfile(interaction.user.id)
     let profile = await User.find({
       user: interaction.user.id

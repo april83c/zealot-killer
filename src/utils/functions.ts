@@ -1,5 +1,5 @@
 import User from "../models/User"
-import kleur from "kleur"
+import { yellow, green, reset } from "kleur"
 
 export const checkProfile = async function (user, bot = null) {
   let users = await User.find({
@@ -15,8 +15,8 @@ export const checkProfile = async function (user, bot = null) {
       zealuck: 0,
       endermanPetLevel: 0
     })
-    u.save()
-    console.log(`Created a profile for ${kleur.green(user)}.`)
+    await u.save()
+    console.log(green("✓"), reset(`Created a profile for ${yellow(user)}.`))
   }
 }
 
