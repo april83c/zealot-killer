@@ -13,6 +13,7 @@ export const checkProfile = async function (user, bot = null) {
       summoningEyes: 0,
       zealotsKilled: 0,
       zealuck: 0,
+      zealotsSinceLastEye: 0, 
       endermanPetLevel: 0
     })
     await u.save()

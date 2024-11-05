@@ -40,12 +40,24 @@ client.on(Events.InteractionCreate, async interaction => {
       let odds = 420
       if (profile[0].zealotsSinceLastEye >= 420 && profile[0].zealotsSinceLastEye < 630) {
         odds /= 2
+        embed.addFields({
+          name: "Bonus!",
+          value: `Your odds have been multiplied by 2 since you killed more than 420 Zealots.`
+        })
         console.log(yellow('‣'), reset(`Multiplying odds by 2 for ${interaction.user.displayName} (${interaction.user.id})`))
       } else if (profile[0].zealotsSinceLastEye >= 630 && profile[0].zealotsSinceLastEye < 840) {
         odds /= 3
+        embed.addFields({
+          name: "Bonus!",
+          value: `Your odds have been multiplied by 3 since you killed more than 630 Zealots.`
+        })
         console.log(yellow('‣'), reset(`Multiplying odds by 3 for ${interaction.user.displayName} (${interaction.user.id})`))
       } else if (profile[0].zealotsSinceLastEye >= 840) {
         odds /= 4
+        embed.addFields({
+          name: "Bonus!",
+          value: `Your odds have been multiplied by 4 since you killed more than 840 Zealots.`
+        })
         console.log(yellow('‣'), reset(`Multiplying odds by 4 for ${interaction.user.displayName} (${interaction.user.id})`))
       }
       if (isEventOccurring(odds)) { // @ts-ignore
