@@ -1,4 +1,4 @@
-import { Client, Events, GatewayIntentBits, SlashCommandBuilder, REST, Routes, EmbedBuilder } from "discord.js"
+import { Client, Events, GatewayIntentBits, SlashCommandBuilder, REST, Routes, EmbedBuilder, InteractionContextType } from "discord.js"
 import "dotenv/config"
 import { yellow, green, reset } from "kleur"
 import { checkProfile, isEventOccurring } from "./utils/functions";
@@ -86,6 +86,7 @@ client.once(Events.ClientReady, async c => {
     new SlashCommandBuilder()
       .setName('kill')
       .setDescription('Kills a Zealot.')
+      .setContexts(InteractionContextType.BotDM, InteractionContextType.PrivateChannel, InteractionContextType.Guild)
   ]
   try {
     const data = await rest.put(
