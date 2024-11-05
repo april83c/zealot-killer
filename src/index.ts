@@ -22,9 +22,9 @@ const client = new Client({
 client.on(Events.InteractionCreate, async interaction => {
   if (!interaction.isChatInputCommand()) return
   if (interaction.commandName.toLowerCase() == 'kill') {
-    await checkProfile(interaction.member.user.id)
+    await checkProfile(interaction.user.id)
     let profile = await User.find({
-      user: interaction.member.user.id
+      user: interaction.user.id
     }).exec() // @ts-ignore
     profile[0].zealotsKilled += 1
     let embed = new EmbedBuilder()
@@ -33,7 +33,7 @@ client.on(Events.InteractionCreate, async interaction => {
         name: "You killed a Zealot!",
         value: `You've killed **${profile[0].zealotsKilled} zealots** so far!`
       })
-      .setAuthor({ name: `${interaction.member.user.username}`, iconURL: interaction.member.user.avatarURL(), url: 'https://minota.cc' })
+      .setAuthor({ name: `${interaction.user.username}`, iconURL: interaction.user.avatarURL(), url: 'https://minota.cc' })
       .setImage('https://cdn.discordapp.com/attachments/550440055651565599/1303199218923737201/Minecraft_entities_enderman.png?ex=672ae25a&is=672990da&hm=a43c2c66f23375bd8aeeedc175e6093513f56ad517dd4254b7ff1918aa57007a&')
     if (isEventOccurring(420)) { // @ts-ignore
       profile[0].summoningEyes += 1
