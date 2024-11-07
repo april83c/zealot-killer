@@ -156,8 +156,9 @@ client.on(Events.InteractionCreate, async interaction => {
       } else if (index == 9) {
         formattedString += ":keycap_ten: "
       }
-
-      formattedString += `${member.displayName} — <:summoning_eye:1303201748881641532> **${profile.summoningEyes} summoning eyes**; <:enderman:1304111798974156942> **${profile.zealotsKilled} zealots killed**\n`
+      if (!profile.totalEyes) profile.totalEyes = profile.summoningEyes
+      await profile.save()
+      formattedString += `${member.displayName} — <:summoning_eye:1303201748881641532> **${profile.totalEyes} summoning eyes**; <:enderman:1304111798974156942> **${profile.zealotsKilled} zealots killed**\n`
       index += 1
     })
     embed.setDescription(formattedString)
