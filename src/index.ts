@@ -103,7 +103,7 @@ client.on(Events.InteractionCreate, async interaction => {
     }
     if (isEventOccurring(odds)) { // @ts-ignore
       profile[0].summoningEyes += 1
-      (profile[0].totalEyes as number) += 1
+      profile[0].totalEyes += 1
       if (profile[0].totalEyes < profile[0].summoningEyes) {
         profile[0].totalEyes = profile[0].summoningEyes
       }
