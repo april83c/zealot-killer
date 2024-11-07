@@ -7,9 +7,12 @@ export const getTopSummoningEyes = async function () {
     if (!user.totalEyes) user.totalEyes = user.summoningEyes
     await user.save()
   })
-  users.sort(function (a, b) { return (b.totalEyes as number) - (a.totalEyes as number) })
+  users.sort((a, b) => {
+    return (b.totalEyes - a.totalEyes) || (b.zealotsKilled - a.zealotsKilled)
+  })
   return users
 }
+
 
 export const checkProfile = async function (user, bot = null) {
   let users = await User.find({
