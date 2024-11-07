@@ -18,10 +18,10 @@ export const checkProfile = async function (user, bot = null) {
       user: user,
       summoningEyes: 0,
       zealotsKilled: 0,
-      zealuck: 0,
+      zealuckLevel: 0,
       totalEyes: 0,
       zealotsSinceLastEye: 0, 
-      endermanPetLevel: 0
+      endermanPetLevel: 0,
     })
     await u.save()
     console.log(green("✓"), reset(`Created a profile for ${yellow(user)}.`))
