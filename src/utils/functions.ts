@@ -3,7 +3,11 @@ import { yellow, green, reset } from "kleur"
 
 export const getTopSummoningEyes = async function () {
   let users = await User.find().exec()
-  users.sort(function (a, b) { return (b.summoningEyes as number) - (a.summoningEyes as number) })
+  users.forEach(async user => {
+    if (!user.totalEyes) user.totalEyes = user.summoningEyes
+    await user.save()
+  })
+  users.sort(function (a, b) { return (b.totalEyes as number) - (a.totalEyes as number) })
   return users
 }
 
