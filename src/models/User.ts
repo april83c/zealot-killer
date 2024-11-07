@@ -6,6 +6,7 @@ const UserSchema: Schema = new Schema({
         required: true
     },
     summoningEyes: Number,
+    totalEyes: Number,
     zealotsKilled: Number,
     zealotsSinceLastEye: Number,
     zealuckLevel: Number,

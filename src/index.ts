@@ -41,21 +41,21 @@ client.on(Events.InteractionCreate, async interaction => {
       .setImage('https://cdn.discordapp.com/attachments/550440055651565599/1303199218923737201/Minecraft_entities_enderman.png?ex=672ae25a&is=672990da&hm=a43c2c66f23375bd8aeeedc175e6093513f56ad517dd4254b7ff1918aa57007a&')
       if (!profile[0].zealotsSinceLastEye) profile[0].zealotsSinceLastEye = 0
       let odds = 420
-      if (profile[0].zealotsSinceLastEye >= 420 && profile[0].zealotsSinceLastEye < 630) {
+      if ((profile[0].zealotsSinceLastEye as number) >= 420 && (profile[0].zealotsSinceLastEye as number) < 630) {
         odds /= 2
         embed.addFields({
           name: "Bonus!",
           value: `Your odds have been multiplied by 2 since you killed more than 420 Zealots.`
         })
         console.log(yellow('‣'), reset(`Multiplying odds by 2 for ${interaction.user.displayName} (${interaction.user.id})`))
-      } else if (profile[0].zealotsSinceLastEye >= 630 && profile[0].zealotsSinceLastEye < 840) {
+      } else if ((profile[0].zealotsSinceLastEye as number) >= 630 && (profile[0].zealotsSinceLastEye as number) < 840) {
         odds /= 3
         embed.addFields({
           name: "Bonus!",
           value: `Your odds have been multiplied by 3 since you killed more than 630 Zealots.`
         })
         console.log(yellow('‣'), reset(`Multiplying odds by 3 for ${interaction.user.displayName} (${interaction.user.id})`))
-      } else if (profile[0].zealotsSinceLastEye >= 840) {
+      } else if ((profile[0].zealotsSinceLastEye as number) >= 840) {
         odds /= 4
         embed.addFields({
           name: "Bonus!",
@@ -72,13 +72,52 @@ client.on(Events.InteractionCreate, async interaction => {
       })
       embed.setImage('https://cdn.discordapp.com/attachments/550440055651565599/1303201412120973352/SkyBlock_entities_special_zealot.png?ex=672ae464&is=672992e4&hm=027908e305249d4eec170f2c2b733f42b19abfe48bf186440fc8b6922a65a950&')
     } else {
-      profile[0].zealotsSinceLastEye += 1
+      (profile[0].zealotsSinceLastEye as number) += 1
       embed.setFooter( {
         text: `Current summoning eye count: ${profile[0].summoningEyes} | Zealots since last eye: ${profile[0].zealotsSinceLastEye}`
       })
     }
 
     profile[0].save()
+    await interaction.reply({ embeds: [embed] })
+  }
+  if (interaction.commandName.toLowerCase() == 'top') {
+    let topProfiles = (await getTopSummoningEyes())
+    topProfiles.slice(0, 9)
+    let embed = new EmbedBuilder()
+    embed.setColor("#5a32a8")
+    embed.setTitle("Top 10 users")
+    let formattedString = ""
+    let index = 0
+    await topProfiles.forEach(async profile => {
+      let member = await client.users.fetch(profile.user as string)
+      if (index == 0) {
+        formattedString += ":first_place: "
+      } else if (index == 1) {
+        formattedString += ":second_place: "
+      } else if (index == 2) {
+        formattedString += ":third_place: "
+      } else if (index == 3) {
+        formattedString += ":four: "
+      } else if (index == 4) {
+        formattedString += ":five: "
+      } else if (index == 5) {
+        formattedString += ":six: "
+      } else if (index == 6) {
+        formattedString += ":seven: "
+      } else if (index == 7) {
+        formattedString += ":eight: "
+      } else if (index == 8) {
+        formattedString += ":nine: "
+      } else if (index == 9) {
+        formattedString += ":keycap_ten: "
+      }
+
+      formattedString += `${member.displayName} — <:summoning_eye:1303201748881641532> **${profile.summoningEyes} summoning eyes**\n`
+      index += 1
+    })
+    console.log(formattedString)
+    embed.setDescription(formattedString)
     await interaction.reply({ embeds: [embed] })
   }
 })
@@ -89,6 +128,10 @@ client.once(Events.ClientReady, async c => {
     new SlashCommandBuilder()
       .setName('kill')
       .setDescription('Kills a Zealot.')
+      .setContexts(InteractionContextType.BotDM, InteractionContextType.PrivateChannel, InteractionContextType.Guild),
+    new SlashCommandBuilder()
+      .setName('top')
+      .setDescription('Shows the top 10 users.')
       .setContexts(InteractionContextType.BotDM, InteractionContextType.PrivateChannel, InteractionContextType.Guild)
   ]
   try {

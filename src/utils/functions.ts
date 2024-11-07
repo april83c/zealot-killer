@@ -3,7 +3,7 @@ import { yellow, green, reset } from "kleur"
 
 export const getTopSummoningEyes = async function () {
   let users = await User.find().exec()
-  users.sort(function (a, b) { return (b.summoningEyes) - (a.summoningEyes) })
+  users.sort(function (a, b) { return (b.summoningEyes as number) - (a.summoningEyes as number) })
   return users
 }
 
@@ -19,6 +19,7 @@ export const checkProfile = async function (user, bot = null) {
       summoningEyes: 0,
       zealotsKilled: 0,
       zealuck: 0,
+      totalEyes: 0,
       zealotsSinceLastEye: 0, 
       endermanPetLevel: 0
     })
