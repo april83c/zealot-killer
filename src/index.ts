@@ -161,7 +161,7 @@ client.on(Events.InteractionCreate, async interaction => {
       index += 1
     })
     embed.setDescription(formattedString)
-    await interaction.reply({ embeds: [embed], ephemeral: true })
+    await interaction.reply({ embeds: [embed] })
   }
   if (interaction.commandName.toLowerCase() == 'store') {
     console.log(yellow('‣'), reset(`${interaction.user.displayName} (${interaction.user.id}) performed the /store command.`))
