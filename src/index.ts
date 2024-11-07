@@ -157,7 +157,6 @@ client.on(Events.InteractionCreate, async interaction => {
         formattedString += ":keycap_ten: "
       }
       if (!profile.totalEyes) profile.totalEyes = profile.summoningEyes
-      await profile.save()
       formattedString += `${member.displayName} — <:summoning_eye:1303201748881641532> **${profile.totalEyes} summoning eyes**; <:enderman:1304111798974156942> **${profile.zealotsKilled} zealots killed**\n`
       index += 1
     })
