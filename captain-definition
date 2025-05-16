@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 2,
+  "dockerfilePath": "./Dockerfile",
+  "envVars": [
+    {
+      "key": "TOKEN",
+      "value": "$cap_TOKEN"
+    },
+    {
+      "key": "MONGODB_URI",
+      "value": "mongodb://$cap_appname-mongodb:27017/zealotKiller"
+    }
+  ],
+  "caproverOneClickApp": {
+    "databases": [
+      {
+        "serviceName": "$cap_appname-mongodb",
+        "serviceSpecification": {
+          "image": "mongo:4.4",
+          "volumes": [
+            {
+              "containerPath": "/data/db",
+              "volumeName": "$cap_appname-mongodb-data"
+            }
+          ],
+          "restart": "always"
+        }
+      }
+    ]
+  }
+}
